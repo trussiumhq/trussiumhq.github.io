@@ -1,0 +1,68 @@
+name: Deploy documentation
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out documentation site
+        uses: actions/checkout@v5
+      - name: Check out runtime documentation
+        uses: actions/checkout@v5
+        with:
+          repository: trussiumhq/trussium
+          path: upstream/runtime
+      - name: Check out operator documentation
+        uses: actions/checkout@v5
+        with:
+          repository: trussiumhq/trussium-operator
+          path: upstream/operator
+      - name: Check out Helm documentation
+        uses: actions/checkout@v5
+        with:
+          repository: trussiumhq/trussium-helm
+          path: upstream/helm
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Install site dependencies
+        run: pip install -r requirements.txt
+      - name: Assemble documentation
+        run: >-
+          python scripts/prepare_docs.py
+          --runtime upstream/runtime
+          --operator upstream/operator
+          --helm upstream/helm
+      - name: Build site
+        run: mkdocs build --strict
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

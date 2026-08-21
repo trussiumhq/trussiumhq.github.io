@@ -1,0 +1,61 @@
+site_name: Trussium
+site_description: Cloud-native, provider-neutral runtime for AI applications.
+site_url: https://trussiumhq.github.io/
+repo_url: https://github.com/trussiumhq
+repo_name: trussiumhq
+docs_dir: site-docs
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+
+nav:
+  - Home: index.md
+  - Runtime:
+      - Overview: runtime/index.md
+      - Architecture: runtime/ARCHITECTURE.MD
+      - Kubernetes deployment: runtime/KUBERNETES.md
+      - Containers: runtime/CONTAINERS.md
+      - Health and readiness: runtime/HEALTH.md
+      - Metrics: runtime/METRICS.md
+      - Tracing: runtime/TRACING.md
+      - Operational logging: runtime/OPERATIONAL_LOGGING.md
+      - Development: runtime/DEVELOPMENT.md
+      - Roadmap: runtime/ROADMAP.md
+      - Architecture decisions: runtime/adr/README.md
+  - Kubernetes Operator:
+      - Overview: operator/index.md
+      - Architecture: operator/ARCHITECTURE.md
+      - Custom resource: operator/CUSTOM_RESOURCE.md
+      - Reconciliation: operator/RECONCILIATION.md
+      - Production runtime: operator/PRODUCTION_RUNTIME.md
+      - Status and events: operator/STATUS_AND_EVENTS.md
+      - Upgrades: operator/UPGRADES.md
+      - Compatibility: operator/COMPATIBILITY.md
+      - Repository setup: operator/REPOSITORY_SETUP.md
+      - Architecture decisions: operator/adr/README.md
+      - Helm chart: operator/chart.md
+  - Helm:
+      - Overview: helm/index.md
+      - Chart values: helm/chart.md
+      - Release operations: helm/RELEASES.md
+      - Roadmap: helm/ROADMAP.md
+  - Documentation governance: contributing.md

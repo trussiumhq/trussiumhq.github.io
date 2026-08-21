@@ -1,7 +1,7 @@
-# Trussium project website
+# Trussium
 
-The organization-level Trussium website is published at
-<https://trussiumhq.github.io>.
+This repository publishes the Trussium project website and documentation portal
+at <https://trussiumhq.github.io>.
 
-The full technical documentation is published separately at
-<https://trussiumhq.github.io/trussium-docs/>.
+It assembles the canonical Runtime, Kubernetes Operator, and Helm chart
+documentation during the build.
