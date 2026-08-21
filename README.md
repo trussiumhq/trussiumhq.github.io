@@ -1,5 +1,9 @@
 # Trussium
 
+<p align="center">
+  <img src="content/assets/trussium-logo.svg" alt="Trussium logo" width="144">
+</p>
+
 This repository publishes the Trussium project website and documentation portal
 at <https://trussiumhq.github.io>.
 
