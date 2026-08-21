@@ -1,5 +1,7 @@
 # Trussium
 
+![Trussium logo](assets/trussium-logo.svg){ width="156" }
+
 ## Cloud-native runtime for AI applications
 
 Trussium is a provider-neutral runtime for operating AI capabilities across
