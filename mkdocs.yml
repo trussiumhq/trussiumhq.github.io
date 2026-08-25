@@ -90,6 +90,7 @@ nav:
       - Reconciliation: operator/RECONCILIATION.md
       - Production runtime: operator/PRODUCTION_RUNTIME.md
       - Status and events: operator/STATUS_AND_EVENTS.md
+      - Metrics: operator/METRICS.md
       - Upgrades: operator/UPGRADES.md
       - Compatibility: operator/COMPATIBILITY.md
       - Repository setup: operator/REPOSITORY_SETUP.md
