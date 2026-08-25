@@ -33,9 +33,15 @@ def copy_component(source_root: Path, destination_name: str, root_replacements: 
     # publish a lowercase, stable URL in the Pages site.  MkDocs treats the
     # filename as part of the page path, so leaving it uppercase produces a
     # case-sensitive URL that is easy to break when linked from navigation.
-    architecture_source = docs / "ARCHITECTURE.MD"
-    architecture_copy = destination / "ARCHITECTURE.MD"
-    if architecture_source.is_file() and architecture_copy.exists():
+    architecture_source = next(
+        (path for path in docs.iterdir() if path.name.upper() == "ARCHITECTURE.MD"),
+        None,
+    )
+    architecture_copy = next(
+        (path for path in destination.iterdir() if path.name.upper() == "ARCHITECTURE.MD"),
+        None,
+    )
+    if architecture_source is not None and architecture_copy is not None:
         architecture_copy.unlink()
         copy_markdown(architecture_source, destination / "architecture.md")
     for document in destination.rglob("*.md"):
