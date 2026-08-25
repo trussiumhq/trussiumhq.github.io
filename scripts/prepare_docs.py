@@ -28,6 +28,16 @@ def copy_component(source_root: Path, destination_name: str, root_replacements: 
     if not docs.is_dir():
         raise ValueError(f"Documentation directory missing: {docs}")
     shutil.copytree(docs, destination)
+    # The runtime repository historically uses an uppercase `.MD` extension
+    # for its architecture document.  Keep that source filename intact, but
+    # publish a lowercase, stable URL in the Pages site.  MkDocs treats the
+    # filename as part of the page path, so leaving it uppercase produces a
+    # case-sensitive URL that is easy to break when linked from navigation.
+    architecture_source = docs / "ARCHITECTURE.MD"
+    architecture_copy = destination / "ARCHITECTURE.MD"
+    if architecture_source.is_file() and architecture_copy.exists():
+        architecture_copy.unlink()
+        copy_markdown(architecture_source, destination / "architecture.md")
     for document in destination.rglob("*.md"):
         copy_markdown(document, document)
     copy_markdown(source_root / "README.md", destination / "index.md", root_replacements)
@@ -44,7 +54,7 @@ def main() -> None:
         shutil.rmtree(SITE)
     shutil.copytree(CONTENT, SITE)
 
-    copy_component(arguments.runtime, "runtime", {})
+    copy_component(arguments.runtime, "runtime", {"ARCHITECTURE.MD": "architecture.md"})
     copy_component(
         arguments.operator,
         "operator",
