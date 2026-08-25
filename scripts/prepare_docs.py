@@ -49,6 +49,19 @@ def copy_component(source_root: Path, destination_name: str, root_replacements: 
     copy_markdown(source_root / "README.md", destination / "index.md", root_replacements)
 
 
+def add_runtime_architecture_overview() -> None:
+    """Place the approved conceptual diagram below the runtime page title."""
+    document = SITE / "runtime" / "architecture.md"
+    text = document.read_text(encoding="utf-8")
+    marker = "# Trussium Architecture\n"
+    overview = (
+        "# Trussium Architecture\n\n"
+        "![Trussium architecture overview](../assets/trussium-architecture-overview.png)\n"
+    )
+    if marker in text and "trussium-architecture-overview.png" not in text:
+        document.write_text(text.replace(marker, overview, 1), encoding="utf-8")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--runtime", type=Path, required=True)
@@ -61,6 +74,7 @@ def main() -> None:
     shutil.copytree(CONTENT, SITE)
 
     copy_component(arguments.runtime, "runtime", {"ARCHITECTURE.MD": "architecture.md"})
+    add_runtime_architecture_overview()
     copy_component(
         arguments.operator,
         "operator",
