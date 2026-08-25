@@ -31,19 +31,61 @@ nav:
   - Home: index.md
   - Runtime:
       - Overview: runtime/index.md
-      - Architecture: runtime/ARCHITECTURE.MD
-      - Kubernetes deployment: runtime/KUBERNETES.md
-      - Containers: runtime/CONTAINERS.md
-      - Health and readiness: runtime/HEALTH.md
-      - Metrics: runtime/METRICS.md
-      - Tracing: runtime/TRACING.md
-      - Operational logging: runtime/OPERATIONAL_LOGGING.md
+      - Architecture: runtime/architecture.md
+      - Vision: runtime/VISION.md
+      - Getting started:
+          - CLI: runtime/CLI.md
+          - API usage: runtime/API_USAGE.md
+          - Packaging: runtime/PACKAGING.md
+          - Self-hosting: runtime/SELF_HOSTING.md
+          - Containers: runtime/CONTAINERS.md
+          - Kubernetes deployment: runtime/KUBERNETES.md
+      - SDKs:
+          - Go SDK: runtime/GO_SDK.md
+          - Python SDK: runtime/PYTHON_SDK.md
+          - TypeScript SDK: runtime/TYPESCRIPT_SDK.md
+      - Capabilities:
+          - Availability: runtime/CAPABILITY_AVAILABILITY.md
+          - Discovery: runtime/CAPABILITY_DISCOVERY.md
+          - Execution pipeline: runtime/CAPABILITY_EXECUTION_PIPELINE.md
+          - Health: runtime/CAPABILITY_HEALTH.md
+          - Lifecycle: runtime/CAPABILITY_LIFECYCLE.md
+          - Middleware: runtime/CAPABILITY_MIDDLEWARE.md
+          - Registry: runtime/CAPABILITY_REGISTRY.md
+          - Audio transcription: runtime/AUDIO_TRANSCRIPTION.md
+          - Batch inference: runtime/BATCH_INFERENCE.md
+          - Embeddings: runtime/EMBEDDINGS.md
+          - Image generation: runtime/IMAGE_GENERATION.md
+          - Moderation: runtime/MODERATION.md
+          - Reranking: runtime/RERANKING.md
+          - Tool execution: runtime/TOOL_EXECUTION.md
+          - Video generation: runtime/VIDEO_GENERATION.md
+      - Operations:
+          - Health and readiness: runtime/HEALTH.md
+          - Component health: runtime/COMPONENT_HEALTH.md
+          - Metrics: runtime/METRICS.md
+          - Tracing: runtime/TRACING.md
+          - Operational logging: runtime/OPERATIONAL_LOGGING.md
+          - Dashboards: runtime/DASHBOARDS.md
+          - Alerting: runtime/ALERTING.md
+          - Shutdown: runtime/SHUTDOWN.md
+          - Lifecycle: runtime/LIFECYCLE.md
+          - Service registry: runtime/SERVICE_REGISTRY.md
+          - Errors: runtime/ERRORS.md
       - Development: runtime/DEVELOPMENT.md
       - Roadmap: runtime/ROADMAP.md
-      - Architecture decisions: runtime/adr/README.md
+      - Architecture decisions:
+          - Index: runtime/adr/README.md
+          - Language strategy: runtime/adr/0001-language-strategy.md
+          - Project structure: runtime/adr/0002-project-structure.md
+          - Capability-first architecture: runtime/adr/0003-capability-first-architecture.md
+          - Plugin architecture: runtime/adr/0004-plugin-architecture.md
+          - Runtime bootstrap: runtime/adr/0005-runtime-bootstrap-architecture.md
+          - Controlled tool execution: runtime/adr/0006-controlled-tool-execution.md
+          - Provider batch inference: runtime/adr/0007-provider-batch-inference.md
   - Kubernetes Operator:
       - Overview: operator/index.md
-      - Architecture: operator/ARCHITECTURE.md
+      - Architecture: operator/architecture.md
       - Custom resource: operator/CUSTOM_RESOURCE.md
       - Reconciliation: operator/RECONCILIATION.md
       - Production runtime: operator/PRODUCTION_RUNTIME.md
@@ -51,7 +93,15 @@ nav:
       - Upgrades: operator/UPGRADES.md
       - Compatibility: operator/COMPATIBILITY.md
       - Repository setup: operator/REPOSITORY_SETUP.md
-      - Architecture decisions: operator/adr/README.md
+      - Architecture decisions:
+          - Index: operator/adr/README.md
+          - Go and Kubebuilder: operator/adr/0001-use-go-and-kubebuilder.md
+          - Separate operator and runtime: operator/adr/0002-separate-operator-and-runtime.md
+          - Runtime API: operator/adr/0003-define-trussiumruntime-v1alpha1-api.md
+          - Owner references: operator/adr/0004-use-owner-references-for-managed-resources.md
+          - Status conditions and events: operator/adr/0005-use-status-conditions-and-transition-events.md
+          - Production workload contract: operator/adr/0006-enforce-production-runtime-workload-contract.md
+          - Upgrade observability: operator/adr/0007-observe-upgrades-through-deployment-status.md
       - Helm chart: operator/chart.md
   - Helm:
       - Overview: helm/index.md
