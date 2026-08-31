@@ -30,6 +30,18 @@ The [official Helm chart](https://github.com/trussiumhq/trussium-helm)
 packages the runtime for configurable Kubernetes installation, upgrade, and
 operational deployment.
 
+## Stable 1.0.0 release
+
+The coordinated stable release is now available across the public components:
+
+- [Trussium runtime v1.0.0](https://github.com/trussiumhq/trussium/releases/tag/v1.0.0)
+- [Trussium Helm chart v1.0.0](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.0.0)
+- [Trussium Operator v1.0.0](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.0)
+
+The operator release includes the Kubernetes installation bundle and chart
+package. The runtime and chart remain independently versioned components, and
+SDKs and provider adapters are optional integrations.
+
 ## Documentation
 
 Use the navigation to access runtime, operator, and Helm documentation. Each
