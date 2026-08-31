@@ -48,9 +48,7 @@ jobs:
           --operator upstream/operator
           --helm upstream/helm
       - name: Build site
-        # Upstream component docs contain intentional links to source files and
-        # examples that are not part of the assembled Pages tree.
-        run: mkdocs build
+        run: mkdocs build --strict
       - name: Configure Pages
         uses: actions/configure-pages@v5
       - name: Upload Pages artifact

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import shutil
 from pathlib import Path
 
@@ -13,16 +14,39 @@ CONTENT = ROOT / "content"
 SITE = ROOT / "site-docs"
 
 
-def copy_markdown(source: Path, destination: Path, replacements: dict[str, str] | None = None) -> None:
+def copy_markdown(
+    source: Path,
+    destination: Path,
+    replacements: dict[str, str] | None = None,
+    source_url: str | None = None,
+) -> None:
     text = source.read_text(encoding="utf-8")
     text = text.replace("](docs/", "](")
+    if source_url:
+        for prefix in (
+            "../../docs/",
+            "../src/",
+            "../examples/",
+            "examples/",
+            "../templates/",
+        ):
+            text = re.sub(
+                rf"\]\({re.escape(prefix)}([^)#]+)(#[^)]+)?\)",
+                lambda match: f"]({source_url}/blob/main/{prefix.lstrip('./')}{match.group(1)}{match.group(2) or ''})",
+                text,
+            )
     for original, replacement in (replacements or {}).items():
         text = text.replace(original, replacement)
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(text, encoding="utf-8")
 
 
-def copy_component(source_root: Path, destination_name: str, root_replacements: dict[str, str]) -> None:
+def copy_component(
+    source_root: Path,
+    destination_name: str,
+    root_replacements: dict[str, str],
+    source_url: str,
+) -> None:
     destination = SITE / destination_name
     docs = source_root / "docs"
     if not docs.is_dir():
@@ -45,8 +69,8 @@ def copy_component(source_root: Path, destination_name: str, root_replacements: 
         architecture_copy.unlink()
         copy_markdown(architecture_source, destination / "architecture.md")
     for document in destination.rglob("*.md"):
-        copy_markdown(document, document)
-    copy_markdown(source_root / "README.md", destination / "index.md", root_replacements)
+        copy_markdown(document, document, source_url=source_url)
+    copy_markdown(source_root / "README.md", destination / "index.md", root_replacements, source_url)
 
 
 def add_runtime_architecture_overview() -> None:
@@ -73,7 +97,12 @@ def main() -> None:
         shutil.rmtree(SITE)
     shutil.copytree(CONTENT, SITE)
 
-    copy_component(arguments.runtime, "runtime", {"ARCHITECTURE.MD": "architecture.md"})
+    copy_component(
+        arguments.runtime,
+        "runtime",
+        {"ARCHITECTURE.MD": "architecture.md"},
+        "https://github.com/trussiumhq/trussium",
+    )
     add_runtime_architecture_overview()
     copy_component(
         arguments.operator,
@@ -85,8 +114,13 @@ def main() -> None:
             "CONTRIBUTING.md": "https://github.com/trussiumhq/trussium-operator/blob/main/CONTRIBUTING.md",
             "SECURITY.md": "https://github.com/trussiumhq/trussium-operator/blob/main/SECURITY.md",
         },
+        "https://github.com/trussiumhq/trussium-operator",
     )
-    copy_markdown(arguments.operator / "charts" / "trussium-operator" / "README.md", SITE / "operator" / "chart.md")
+    copy_markdown(
+        arguments.operator / "charts" / "trussium-operator" / "README.md",
+        SITE / "operator" / "chart.md",
+        source_url="https://github.com/trussiumhq/trussium-operator",
+    )
     copy_component(
         arguments.helm,
         "helm",
@@ -94,8 +128,13 @@ def main() -> None:
             "charts/trussium/README.md": "chart.md",
             "CONTRIBUTING.md": "https://github.com/trussiumhq/trussium-helm/blob/main/CONTRIBUTING.md",
         },
+        "https://github.com/trussiumhq/trussium-helm",
     )
-    copy_markdown(arguments.helm / "charts" / "trussium" / "README.md", SITE / "helm" / "chart.md")
+    copy_markdown(
+        arguments.helm / "charts" / "trussium" / "README.md",
+        SITE / "helm" / "chart.md",
+        source_url="https://github.com/trussiumhq/trussium-helm",
+    )
 
 
 if __name__ == "__main__":
