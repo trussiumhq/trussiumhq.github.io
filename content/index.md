@@ -55,15 +55,14 @@ Operator; the Operator is a separate project for teams that want
 
 The public components are independently versioned. The current baseline is:
 
-- [Trussium runtime v1.16.0](https://github.com/trussiumhq/trussium/releases/tag/v1.16.0)
+- [Trussium runtime v1.17.0](https://github.com/trussiumhq/trussium/releases/tag/v1.17.0)
 - [Trussium Helm chart v1.0.0](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.0.0)
 - [Trussium Operator v1.0.0](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.0)
 
 The runtime, chart, and operator remain independently versioned components;
-SDKs and provider adapters are optional integrations. A proposed coordinated
-1.17.0 baseline is available in the runtime's
-[release-candidate manifest](https://github.com/trussiumhq/trussium/blob/main/docs/RELEASE_1_17_CANDIDATE.md);
-it is a review artifact and does not authorize tagging or publication.
+SDKs and provider adapters are optional integrations. The runtime’s bounded MCP
+tool-execution surface is included in v1.17.0 and is documented in the Runtime
+capabilities section.
 
 ## Project status
 
