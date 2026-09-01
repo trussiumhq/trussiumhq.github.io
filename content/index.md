@@ -39,9 +39,9 @@ The public components are independently versioned. The current baseline is:
 - [Trussium Operator v1.0.0](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.0)
 
 The runtime and chart remain independently versioned components, and SDKs and
-provider adapters are optional integrations. A proposed coordinated 2.0.0
+provider adapters are optional integrations. A proposed coordinated 1.17.0
 baseline is available in the runtime's
-[release-candidate manifest](https://github.com/trussiumhq/trussium/blob/main/docs/RELEASE_2_0_CANDIDATE.md);
+[release-candidate manifest](https://github.com/trussiumhq/trussium/blob/main/docs/RELEASE_1_17_CANDIDATE.md);
 it is a review artifact and does not authorize tagging or publication.
 
 ## Documentation
