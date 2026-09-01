@@ -59,6 +59,7 @@ nav:
           - Moderation: runtime/MODERATION.md
           - Reranking: runtime/RERANKING.md
           - Tool execution: runtime/TOOL_EXECUTION.md
+          - MCP execution: runtime/MCP.md
           - Video generation: runtime/VIDEO_GENERATION.md
       - Operations:
           - Health and readiness: runtime/HEALTH.md
