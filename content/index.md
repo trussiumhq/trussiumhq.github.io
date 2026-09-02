@@ -18,6 +18,16 @@ tracing, structured logs, and bounded shutdown behavior.
 *Conceptual architecture: provider logos represent adapter examples; the
 runtime does not install or require every provider shown.*
 
+## Deployment and request flows
+
+Choose the deployment model that matches your operating needs:
+
+![Trussium deployment paths](assets/trussium-deployment-paths.svg)
+
+Every integration follows the same provider-neutral request lifecycle:
+
+![Trussium request lifecycle](assets/trussium-request-lifecycle.svg)
+
 ## Project components
 
 ### Runtime

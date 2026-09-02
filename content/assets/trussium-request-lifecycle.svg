@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="300" viewBox="0 0 1400 300" role="img" aria-labelledby="title desc">
+  <title id="title">Trussium request lifecycle</title>
+  <desc id="desc">A request flows from a client through an API, capability pipeline, provider adapter, and normalized response.</desc>
+  <style>text{font-family:Arial,sans-serif;fill:#102a56} .head{font-size:28px;font-weight:700;fill:#fff} .label{font-size:20px;font-weight:700} .body{font-size:16px} .box{fill:#f7fbff;stroke:#0b6f83;stroke-width:3} .arrow{stroke:#102a56;stroke-width:3;fill:none;marker-end:url(#arrow)}</style>
+  <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#102a56"/></marker></defs>
+  <rect x="35" y="25" width="1330" height="58" rx="12" fill="#082653"/>
+  <text x="700" y="63" text-anchor="middle" class="head">Provider-neutral request lifecycle</text>
+  <g transform="translate(35,125)">
+    <rect width="210" height="105" rx="12" class="box"/><text x="105" y="43" text-anchor="middle" class="label">Client</text><text x="105" y="72" text-anchor="middle" class="body">REST / MCP</text>
+    <path d="M220 52 H275" class="arrow"/>
+    <rect x="285" width="210" height="105" rx="12" class="box"/><text x="390" y="43" text-anchor="middle" class="label">API layer</text><text x="390" y="72" text-anchor="middle" class="body">Validation + IDs</text>
+    <path d="M505 52 H560" class="arrow"/>
+    <rect x="570" width="210" height="105" rx="12" class="box"/><text x="675" y="43" text-anchor="middle" class="label">Capability</text><text x="675" y="72" text-anchor="middle" class="body">Normalize + route</text>
+    <path d="M790 52 H845" class="arrow"/>
+    <rect x="855" width="210" height="105" rx="12" class="box"/><text x="960" y="43" text-anchor="middle" class="label">Provider</text><text x="960" y="72" text-anchor="middle" class="body">OpenAI / Ollama</text>
+    <path d="M1075 52 H1130" class="arrow"/>
+    <rect x="1140" width="210" height="105" rx="12" class="box"/><text x="1245" y="43" text-anchor="middle" class="label">Response</text><text x="1245" y="72" text-anchor="middle" class="body">JSON or SSE</text>
+  </g>
+</svg>
