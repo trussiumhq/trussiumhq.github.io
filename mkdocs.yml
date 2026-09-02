@@ -29,6 +29,14 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Task guides:
+      - Run locally: runtime/CLI.md
+      - Call the API: runtime/API_USAGE.md
+      - Configure a provider: runtime/PROVIDER_DEVELOPMENT.md
+      - Deploy with Helm: helm/chart.md
+      - Deploy with the Operator: operator/CUSTOM_RESOURCE.md
+      - Integrate MCP tools: runtime/MCP.md
+      - Operate in production: runtime/HEALTH.md
   - Runtime:
       - Overview: runtime/index.md
       - Architecture: runtime/architecture.md
@@ -38,6 +46,7 @@ nav:
           - API usage: runtime/API_USAGE.md
           - Packaging: runtime/PACKAGING.md
           - Self-hosting: runtime/SELF_HOSTING.md
+          - Provider configuration: runtime/PROVIDER_DEVELOPMENT.md
           - Containers: runtime/CONTAINERS.md
           - Kubernetes deployment: runtime/KUBERNETES.md
       - SDKs:

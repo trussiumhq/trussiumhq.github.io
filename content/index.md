@@ -55,6 +55,9 @@ Operator; the Operator is a separate project for teams that want
 
 ## Choose a starting point
 
+Use the **Task guides** section in the navigation for a direct path through a
+common workflow. The links below provide the same entry points with context:
+
 - **Run locally:** start with the runtime [CLI](runtime/CLI.md) and
   [API usage](runtime/API_USAGE.md) guides.
 - **Run privately:** follow [self-hosting](runtime/SELF_HOSTING.md), then
