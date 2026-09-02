@@ -13,6 +13,11 @@ The runtime is designed for teams that need normalized capability responses,
 request correlation, streaming support, health and readiness checks, metrics,
 tracing, structured logs, and bounded shutdown behavior.
 
+![Trussium architecture overview](assets/trussium-architecture-overview.png)
+
+*Conceptual architecture: provider logos represent adapter examples; the
+runtime does not install or require every provider shown.*
+
 ## Project components
 
 ### Runtime
@@ -65,7 +70,7 @@ tool-execution surface, including the bounded `ping` handshake, declared tool
 input schemas, cursor pagination, lifecycle notifications, and explicit tool
 success status, is included in the v1.22 release line and is documented
 in the Runtime capabilities section. The Operator compatibility matrix records
-the tested runtime `v1.17.0` / chart `v1.1.0` combination.
+the tested runtime `v1.22.0` / chart `v1.1.0` combination.
 
 ## Project status
 
