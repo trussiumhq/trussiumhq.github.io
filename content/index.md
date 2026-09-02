@@ -55,14 +55,14 @@ Operator; the Operator is a separate project for teams that want
 
 The public components are independently versioned. The current baseline is:
 
-- [Trussium runtime v1.18.0](https://github.com/trussiumhq/trussium/releases/tag/v1.18.0)
+- [Trussium runtime v1.19.0](https://github.com/trussiumhq/trussium/releases/tag/v1.19.0)
 - [Trussium Helm chart v1.1.0](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.1.0)
 - [Trussium Operator v1.0.0](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.0)
 
 The runtime, chart, and operator remain independently versioned components;
 SDKs and provider adapters are optional integrations. The runtime’s bounded MCP
-tool-execution surface, including the bounded `ping` handshake, is included in
-the v1.18 release line and is documented
+tool-execution surface, including the bounded `ping` handshake and declared
+tool input schemas, is included in the v1.19 release line and is documented
 in the Runtime capabilities section. The Operator compatibility matrix records
 the tested runtime `v1.17.0` / chart `v1.1.0` combination.
 
