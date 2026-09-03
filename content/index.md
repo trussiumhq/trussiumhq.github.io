@@ -75,7 +75,7 @@ The public components are independently versioned. The current baseline is:
 
 - [Trussium runtime v1.22.0](https://github.com/trussiumhq/trussium/releases/tag/v1.22.0)
 - [Trussium Helm chart v1.3.0](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.3.0)
-- [Trussium Operator v1.0.1](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.1)
+- [Trussium Operator v1.0.2](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.2)
 
 The runtime, chart, and operator remain independently versioned components;
 SDKs and provider adapters are optional integrations. The runtime’s bounded MCP
