@@ -73,7 +73,7 @@ common workflow. The links below provide the same entry points with context:
 
 The public components are independently versioned. The current baseline is:
 
-- [Trussium runtime v1.24.0](https://github.com/trussiumhq/trussium/releases/tag/v1.24.0)
+- [Trussium runtime v1.26.0](https://github.com/trussiumhq/trussium/releases/tag/v1.26.0)
 - [Trussium Helm chart v1.3.0](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.3.0)
 - [Trussium Operator v1.0.2](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.2)
 
