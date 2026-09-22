@@ -35,6 +35,11 @@ jobs:
         with:
           repository: trussiumhq/trussium-helm
           path: upstream/helm
+      - name: Check out CLI documentation
+        uses: actions/checkout@v5
+        with:
+          repository: trussiumhq/trussiumctl
+          path: upstream/cli
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
@@ -47,6 +52,7 @@ jobs:
           --runtime upstream/runtime
           --operator upstream/operator
           --helm upstream/helm
+          --cli upstream/cli
       - name: Build site
         run: mkdocs build --strict
       - name: Configure Pages
