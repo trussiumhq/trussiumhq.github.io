@@ -53,6 +53,14 @@ The chart installs the runtime workload. It does not install the Kubernetes
 Operator; the Operator is a separate project for teams that want
 `TrussiumRuntime` custom resources and reconciliation.
 
+### trussiumctl CLI
+
+The [trussiumctl CLI](https://github.com/trussiumhq/trussiumctl) is a
+standalone Go binary for read-only inspection and guarded Kubernetes and Helm
+operations. It discovers deployed component versions for diagnostics and
+upgrade preflights, requires explicit confirmation for mutations, validates
+manifests server-side, and verifies completed operations.
+
 ## Choose a starting point
 
 Use the **Task guides** section in the navigation for a direct path through a
@@ -74,16 +82,17 @@ common workflow. The links below provide the same entry points with context:
 The public components are independently versioned. The current baseline is:
 
 - [Trussium runtime v1.27.0](https://github.com/trussiumhq/trussium/releases/tag/v1.27.0)
-- [Trussium Helm chart v1.3.0](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.3.0)
+- [Trussium Helm chart v1.3.1](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.3.1)
 - [Trussium Operator v1.0.3](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.3)
+- [trussiumctl CLI v1.16.0](https://github.com/trussiumhq/trussiumctl/releases/tag/v1.16.0)
 
-The runtime, chart, and operator remain independently versioned components;
+The runtime, chart, operator, and CLI remain independently versioned components;
 SDKs and provider adapters are optional integrations. The runtime’s bounded MCP
 tool-execution surface, including the bounded `ping` handshake, declared tool
 input schemas, cursor pagination, lifecycle notifications, and explicit tool
-success status, is included in the v1.22 release line and is documented
+success status, is included in the v1.27 release line and is documented
 in the Runtime capabilities section. The Operator compatibility matrix records
-the Operator-validated runtime `v1.27.0` / chart `v1.3.0` combination.
+the tested runtime `v1.27.0` / chart `v1.3.1` combination.
 
 ## Project status
 
@@ -94,7 +103,7 @@ upgrading.
 
 ## Documentation
 
-Use the navigation to access runtime, operator, and Helm documentation. Each
-section covers public contracts, deployment guidance, operational behavior,
+Use the navigation to access runtime, operator, Helm, and CLI documentation.
+Each section covers public contracts, deployment guidance, operational behavior,
 and architecture decisions. Contributions and documentation corrections are
 welcome through the [contributing guide](contributing.md).

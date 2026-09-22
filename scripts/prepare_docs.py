@@ -91,6 +91,7 @@ def main() -> None:
     parser.add_argument("--runtime", type=Path, required=True)
     parser.add_argument("--operator", type=Path, required=True)
     parser.add_argument("--helm", type=Path, required=True)
+    parser.add_argument("--cli", type=Path, required=True)
     arguments = parser.parse_args()
 
     if SITE.exists():
@@ -134,6 +135,12 @@ def main() -> None:
         arguments.helm / "charts" / "trussium" / "README.md",
         SITE / "helm" / "chart.md",
         source_url="https://github.com/trussiumhq/trussium-helm",
+    )
+    copy_component(
+        arguments.cli,
+        "cli",
+        {"(LICENSE)": "(https://github.com/trussiumhq/trussiumctl/blob/main/LICENSE)"},
+        "https://github.com/trussiumhq/trussiumctl",
     )
 
 

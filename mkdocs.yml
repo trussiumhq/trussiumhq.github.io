@@ -35,6 +35,7 @@ nav:
       - Configure a provider: runtime/PROVIDER_DEVELOPMENT.md
       - Deploy with Helm: helm/chart.md
       - Deploy with the Operator: operator/CUSTOM_RESOURCE.md
+      - Manage deployments with trussiumctl: cli/index.md
       - Integrate MCP tools: runtime/MCP.md
       - Operate in production: runtime/HEALTH.md
   - Runtime:
@@ -119,4 +120,8 @@ nav:
       - Chart values: helm/chart.md
       - Release operations: helm/RELEASES.md
       - Roadmap: helm/ROADMAP.md
+  - trussiumctl CLI:
+      - Overview: cli/index.md
+      - Release verification: cli/RELEASE.md
+      - Roadmap: cli/ROADMAP.md
   - Documentation governance: contributing.md
