@@ -83,7 +83,7 @@ The public components are independently versioned. The current baseline is:
 
 - [Trussium runtime v1.27.0](https://github.com/trussiumhq/trussium/releases/tag/v1.27.0)
 - [Trussium Helm chart v1.3.1](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.3.1)
-- [Trussium Operator v1.0.3](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.3)
+- [Trussium Operator v1.0.4](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.4)
 - [trussiumctl CLI v1.16.0](https://github.com/trussiumhq/trussiumctl/releases/tag/v1.16.0)
 
 The runtime, chart, operator, and CLI remain independently versioned components;
