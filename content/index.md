@@ -81,9 +81,9 @@ common workflow. The links below provide the same entry points with context:
 
 The public components are independently versioned. The current baseline is:
 
-- [Trussium runtime v1.27.0](https://github.com/trussiumhq/trussium/releases/tag/v1.27.0)
+- [Trussium runtime v1.29.1](https://github.com/trussiumhq/trussium/releases/tag/v1.29.1)
 - [Trussium Helm chart v1.3.1](https://github.com/trussiumhq/trussium-helm/releases/tag/v1.3.1)
-- [Trussium Operator v1.0.4](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.4)
+- [Trussium Operator v1.0.5](https://github.com/trussiumhq/trussium-operator/releases/tag/v1.0.5)
 - [trussiumctl CLI v1.16.0](https://github.com/trussiumhq/trussiumctl/releases/tag/v1.16.0)
 
 The runtime, chart, operator, and CLI remain independently versioned components;
@@ -91,8 +91,11 @@ SDKs and provider adapters are optional integrations. The runtime’s bounded MC
 tool-execution surface, including the bounded `ping` handshake, declared tool
 input schemas, cursor pagination, lifecycle notifications, and explicit tool
 success status, is included in the v1.27 release line and is documented
-in the Runtime capabilities section. The Operator compatibility matrix records
-the tested runtime `v1.27.0` / chart `v1.3.1` combination.
+in the Runtime capabilities section. The
+[Operator compatibility matrix](operator/COMPATIBILITY.md) records runtime
+`v1.27.0` and `v1.29.1` as tested with Operator v1.0.5. The
+Runtime Helm chart v1.3.1 still defaults to runtime `1.27.0`; the Operator
+validation selects `1.29.1` explicitly, so the chart default has not changed.
 
 ## Project status
 
