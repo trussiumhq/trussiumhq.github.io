@@ -19,24 +19,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out documentation site
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
       - name: Check out runtime documentation
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: trussiumhq/trussium
           path: upstream/runtime
       - name: Check out operator documentation
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: trussiumhq/trussium-operator
           path: upstream/operator
       - name: Check out Helm documentation
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: trussiumhq/trussium-helm
           path: upstream/helm
       - name: Check out CLI documentation
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
         with:
           repository: trussiumhq/trussiumctl
           path: upstream/cli
