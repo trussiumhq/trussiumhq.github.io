@@ -61,6 +61,14 @@ operations. It discovers deployed component versions for diagnostics and
 upgrade preflights, requires explicit confirmation for mutations, validates
 manifests server-side, and verifies completed operations.
 
+### Knowledge Agent reference application
+
+The [Trussium Knowledge Agent](https://github.com/trussiumhq/trussium-knowledge-agent)
+is an early-stage Python reference application for Markdown knowledge search
+and documentation maintenance. Its roadmap plans cited RAG answers and a
+bounded documentation audit workflow built with Trussium. Indexing and agent
+features are still planned; follow the repository roadmap for current status.
+
 ## Choose a starting point
 
 Use the **Task guides** section in the navigation for a direct path through a

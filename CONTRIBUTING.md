@@ -10,6 +10,7 @@ Operator, Helm chart, and this documentation portal are welcome.
 | Runtime | [trussium](https://github.com/trussiumhq/trussium) |
 | Kubernetes Operator | [trussium-operator](https://github.com/trussiumhq/trussium-operator) |
 | Helm chart | [trussium-helm](https://github.com/trussiumhq/trussium-helm) |
+| Knowledge Agent reference application | [trussium-knowledge-agent](https://github.com/trussiumhq/trussium-knowledge-agent) |
 | Project website and documentation portal | [trussiumhq.github.io](https://github.com/trussiumhq/trussiumhq.github.io) |
 
 ## Reporting issues
