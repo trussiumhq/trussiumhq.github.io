@@ -64,10 +64,12 @@ manifests server-side, and verifies completed operations.
 ### Knowledge Agent reference application
 
 The [Trussium Knowledge Agent](https://github.com/trussiumhq/trussium-knowledge-agent)
-is an early-stage Python reference application for Markdown knowledge search
-and documentation maintenance. Its roadmap plans cited RAG answers and a
-bounded documentation audit workflow built with Trussium. Indexing and agent
-features are still planned; follow the repository roadmap for current status.
+is a Python reference application for Markdown knowledge search and
+documentation maintenance. Its initial indexing workflow ingests an explicitly
+selected local Markdown repository and stores heading-aware chunks with source
+metadata. Cited RAG answers and a bounded documentation audit workflow built
+with Trussium remain planned; follow the repository roadmap for current status
+and canonical setup instructions.
 
 ## Choose a starting point
 
