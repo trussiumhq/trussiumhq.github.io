@@ -65,11 +65,13 @@ manifests server-side, and verifies completed operations.
 
 The [Trussium Knowledge Agent](https://github.com/trussiumhq/trussium-knowledge-agent)
 is a Python reference application for Markdown knowledge search and
-documentation maintenance. Its initial indexing workflow ingests an explicitly
-selected local Markdown repository and stores heading-aware chunks with source
-metadata. Cited RAG answers and a bounded documentation audit workflow built
-with Trussium remain planned; follow the repository roadmap for current status
-and canonical setup instructions.
+documentation maintenance. It can index an explicitly selected local Markdown
+repository, send chunks to a configured Trussium runtime for embeddings, and
+run bounded semantic search over pgvector with source paths and heading
+citations. Grounded answer generation, a browser search interface, and the
+bounded documentation audit agent remain planned. See the
+[repository roadmap](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/ROADMAP.md)
+for current status and the canonical setup instructions.
 
 ## Choose a starting point
 
