@@ -6,12 +6,15 @@ The integration uses a tool that is registered by the application at startup;
 the workflow request cannot select a URL, discover remote tools, or change the
 registered tool allowlist.
 
-> **Availability:** The cross-repository integration is tracked by
-> [runtime issue #466](https://github.com/trussiumhq/trussium/issues/466),
-> [Python SDK issue #14](https://github.com/trussiumhq/trussium-python/issues/14),
-> and [Knowledge Agent issue #15](https://github.com/trussiumhq/trussium-knowledge-agent/issues/15).
-> Use each component's release notes to confirm availability in a released
-> version before deploying it.
+> **Availability:** The integration implementation is merged across the
+> [runtime](https://github.com/trussiumhq/trussium/pull/468),
+> [Python SDK](https://github.com/trussiumhq/trussium-python/pull/15), and
+> [Knowledge Agent](https://github.com/trussiumhq/trussium-knowledge-agent/pull/16)
+> repositories. These components are independently released, so verify that
+> the runtime image and SDK version you deploy include the workflow and remote
+> MCP features described here. Consult each component's release notes; merged
+> code is not by itself a guarantee that a feature is available in a published
+> release.
 
 ## Component responsibilities
 
