@@ -71,10 +71,10 @@ run bounded semantic search over pgvector. Its `ask` command sends retrieved
 passages to a configured Trussium chat model and returns an answer only when
 its citation IDs map to retrieved source paths and headings; missing or invalid
 evidence produces an insufficient-evidence response. A browser interface is
-available as a local reference UI, while the bounded documentation-audit
-workflow is being integrated across the runtime, Python SDK, and Knowledge
-Agent. See the public [agent workflow guide](agent-workflows.md) for the
-composition and current implementation issues, and the
+available as a local reference UI. The bounded documentation-audit workflow
+implementation is now merged across the runtime, Python SDK, and Knowledge
+Agent; availability in published component releases may differ. See the public
+[agent workflow guide](agent-workflows.md) for composition and release guidance, and the
 [repository roadmap](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/ROADMAP.md)
 for current status and the canonical setup instructions. The repository also
 includes a small retrieval-evaluation corpus and an `evaluate` CLI command that
