@@ -37,6 +37,7 @@ nav:
       - Deploy with the Operator: operator/CUSTOM_RESOURCE.md
       - Manage deployments with trussiumctl: cli/index.md
       - Integrate MCP tools: runtime/MCP.md
+      - Build an agent workflow: agent-workflows.md
       - Operate in production: runtime/HEALTH.md
   - Runtime:
       - Overview: runtime/index.md
@@ -124,4 +125,6 @@ nav:
       - Overview: cli/index.md
       - Release verification: cli/RELEASE.md
       - Roadmap: cli/ROADMAP.md
+  - Agent workflows:
+      - Documentation audit workflow: agent-workflows.md
   - Documentation governance: contributing.md
