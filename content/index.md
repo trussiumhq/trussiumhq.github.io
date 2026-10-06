@@ -79,7 +79,12 @@ reports Hit@k, Recall@k, MRR@k, and expected versus retrieved source citations.
 These metrics assess retrieval and citation coverage only; they do not prove
 that a generated answer is factually correct. See the
 [evaluation guide](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/EVALUATION.md)
-for setup and interpretation.
+for setup and interpretation. The app also provides a local browser interface
+that displays citation-validated answers, source paths and headings, and a
+clear insufficient-evidence state. It is a reference UI, not an authenticated
+multi-user service; see the
+[browser-interface guide](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/WEB_INTERFACE.md)
+for its API, setup, and deployment boundary.
 
 ## Choose a starting point
 
