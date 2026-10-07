@@ -2,19 +2,20 @@
 
 This guide describes how the Trussium runtime, its Python SDK, and the
 Knowledge Agent can be composed into a bounded documentation-audit workflow.
-The integration uses a tool that is registered by the application at startup;
+The integration uses tools that are registered by the application at startup;
 the workflow request cannot select a URL, discover remote tools, or change the
 registered tool allowlist.
 
 > **Availability:** The integration implementation is merged across the
 > [runtime](https://github.com/trussiumhq/trussium/pull/468),
 > [Python SDK](https://github.com/trussiumhq/trussium-python/pull/15), and
-> [Knowledge Agent](https://github.com/trussiumhq/trussium-knowledge-agent/pull/16)
-> repositories. These components are independently released, so verify that
-> the runtime image and SDK version you deploy include the workflow and remote
-> MCP features described here. Consult each component's release notes; merged
-> code is not by itself a guarantee that a feature is available in a published
-> release.
+> [Knowledge Agent search integration](https://github.com/trussiumhq/trussium-knowledge-agent/pull/16)
+> repositories. The deterministic link-audit tool was added in [Knowledge Agent
+> PR #20](https://github.com/trussiumhq/trussium-knowledge-agent/pull/20).
+> These components are independently released, so verify that the runtime,
+> Python SDK, and Knowledge Agent versions you deploy include the features you
+> use. Consult each component's release notes; merged code is not by itself a
+> guarantee that a feature is available in a published release.
 
 ## Component responsibilities
 
@@ -24,9 +25,10 @@ registered tool allowlist.
 - **Python SDK** sends a typed workflow request to `POST
   /v1/workflows/executions` and validates the normalized response. It does not
   register or discover tools.
-- **Knowledge Agent** exposes an authenticated `docs.search` MCP tool. It
-  searches indexed Markdown content and returns bounded matches and citation
-  metadata; it does not modify source documents.
+- **Knowledge Agent** exposes authenticated, fixed read-only MCP tools:
+  `docs.search` searches indexed Markdown and returns bounded cited matches;
+  `docs.audit_links` deterministically checks local Markdown links and heading
+  anchors under an operator-configured root. Neither tool modifies documents.
 - **Your application composition** pins the remote URL, remote tool name,
   argument schema, and credential, then registers the resulting local tool
   name with the runtime.
@@ -35,19 +37,26 @@ registered tool allowlist.
 
 1. A Trussium application configured with the tool-execution dependencies
    required by the runtime release you use.
-2. A Knowledge Agent deployment with its database configured, an embedding
-   model available through Trussium, and the intended Markdown sources already
-   indexed.
+2. For `docs.search`: a Knowledge Agent deployment with its database
+   configured, an embedding model available through Trussium, and the intended
+   Markdown sources already indexed. These are not required for the standalone
+   `docs.audit_links` check.
 3. A private, high-entropy bearer token shared between the runtime application
    and Knowledge Agent. Store it in your platform's secret manager; do not put
    it in a workflow request, source control, a browser bundle, or logs.
 4. Network access from the runtime application to the fixed Knowledge Agent
    HTTPS endpoint.
+5. For `docs.audit_links`, configure `KNOWLEDGE_AGENT_AUDIT_ROOT` on the
+   Knowledge Agent service to a readable local Markdown directory. In a
+   container deployment, mount the selected documentation into the Knowledge
+   Agent service; the runtime workflow cannot provide a filesystem path.
 
 The Knowledge Agent tool endpoint is disabled unless
 `KNOWLEDGE_AGENT_TOOL_TOKEN` is configured. Its MCP surface accepts the
-`tools/call` method for the fixed `docs.search` operation and rejects other
-tools or methods. It does not offer write operations or runtime discovery.
+`tools/call` method for the fixed `docs.search` and `docs.audit_links`
+operations and rejects other tools or methods. `docs.audit_links` also remains
+unavailable until the operator configures `KNOWLEDGE_AGENT_AUDIT_ROOT`. The
+endpoint does not offer write operations or runtime discovery.
 
 ## Register the fixed remote tool
 
@@ -88,6 +97,48 @@ correlation IDs. For local development, loopback HTTP must be explicitly
 enabled by the application. Do not derive the endpoint or remote tool name
 from a request, retrieved document, or model output.
 
+## Register the fixed read-only link audit
+
+The link audit is deterministic and does not use a language model or the
+Knowledge Agent's retrieval database. Keep its root in trusted service
+configuration, and register only the bounded `max_findings` argument:
+
+```python
+import os
+
+from pydantic import BaseModel, ConfigDict, Field
+from trussium.app import create_application
+from trussium.tools import RemoteMCPTool, ToolExecutor, ToolRegistry
+
+
+class DocumentationAudit(BaseModel):
+    model_config = ConfigDict(extra="forbid", frozen=True)
+
+    max_findings: int = Field(default=100, ge=1, le=500)
+
+
+audit = RemoteMCPTool(
+    name="knowledge.audit-links",
+    endpoint_url=os.environ["KNOWLEDGE_AGENT_MCP_URL"],
+    remote_name="docs.audit_links",
+    arguments_model=DocumentationAudit,
+    bearer_token=os.environ["KNOWLEDGE_AGENT_TOOL_TOKEN"],
+).registered_tool()
+
+app = create_application(
+    tool_executor=ToolExecutor(ToolRegistry((audit,))),
+)
+```
+
+The Knowledge Agent, not the runtime request, selects the root with
+`KNOWLEDGE_AGENT_AUDIT_ROOT`. Callers cannot pass a path, URL, or glob. The
+scanner checks inline Markdown links and images, local target existence, and
+heading/HTML anchors. It ignores external URLs, does not follow symlinks, and
+does not modify source files. Reference-style links and raw HTML links are not
+currently audited. Limits are 2,000 Markdown files, 20,000 links, 5 MiB per
+file, 50 MiB total input, and at most 500 findings. The requested
+`max_findings` further caps the response.
+
 ## Submit an ordered workflow with the Python SDK
 
 The SDK request selects only the local tool name already registered above:
@@ -121,6 +172,39 @@ if result["status"] != "completed":
 matches = result["steps"][0]["output"]
 ```
 
+To run the deterministic link check instead, submit its explicitly registered
+local audit tool. The output reports files and links checked, whether the
+finding list was truncated, and each finding's rule ID, source-relative path,
+line, target, and explanation:
+
+```python
+result = client.execute_workflow(
+    {
+        "steps": [
+            {
+                "id": "audit-links",
+                "invocation": {
+                    "name": "knowledge.audit-links",
+                    "arguments": {"max_findings": 100},
+                },
+            }
+        ],
+        "deadline_seconds": 15,
+    },
+    request_id="docs-link-audit-1",
+)
+
+if result["status"] != "completed":
+    raise RuntimeError(f"Workflow ended with status {result['status']}")
+
+audit_report = result["steps"][0]["output"]
+for finding in audit_report["findings"]:
+    print(finding["source_path"], finding["line"], finding["rule_id"])
+```
+
+Treat findings as review input: the tool identifies suspicious links but never
+repairs files or opens external destinations.
+
 Treat returned document text as untrusted input. Search results are evidence to
 inspect, not instructions to execute. Any later summarization step should keep
 the source paths and headings attached, report uncertainty, and avoid treating
@@ -146,8 +230,12 @@ Common causes of failure include:
   in the deployed version/configuration.
 - `401` or `403` from the remote call: the shared token is absent, invalid, or
   not authorized by the Knowledge Agent.
-- `503`: Knowledge Agent tool access is disabled or its database/runtime
-  dependency is unavailable.
+- `503`: Knowledge Agent tool access is disabled. For `docs.search`, also check
+  its database and runtime embedding dependencies.
+- Audit service unavailable/failed: confirm the Knowledge Agent has a readable
+  `KNOWLEDGE_AGENT_AUDIT_ROOT`, the source is within file/byte/link limits, and
+  Markdown files are UTF-8. The generic failure response intentionally omits
+  local paths and document content.
 - Validation or tool errors: the registered local name, remote operation,
   argument schema, request size, or deadline does not match the configured
   contract.
@@ -161,12 +249,12 @@ include it in issue reports or logs.
 This pattern intentionally avoids generic network or agent-directed tool
 access. The application owns the endpoint and allowlist; the runtime owns
 validation, authorization, deadline, cancellation, and audit behavior; the
-Knowledge Agent limits the remote capability to authenticated read-only
-search. The integration does not grant document writes, shell access, arbitrary
-HTTP requests, or remote tool discovery. Deploy the Knowledge Agent behind
-TLS and an appropriate network boundary, and do not expose its local browser
-reference UI as an authenticated multi-user service without adding the
-necessary access controls.
+Knowledge Agent limits remote capabilities to authenticated read-only search
+and deterministic local link checks. The integration does not grant document
+writes, shell access, arbitrary HTTP requests, or remote tool discovery. Deploy
+the Knowledge Agent behind TLS and an appropriate network boundary, and do not
+expose its local browser reference UI as an authenticated multi-user service
+without adding the necessary access controls.
 
 ## Related references
 
@@ -176,3 +264,4 @@ necessary access controls.
 - [Python SDK repository](https://github.com/trussiumhq/trussium-python)
 - [Knowledge Agent repository](https://github.com/trussiumhq/trussium-knowledge-agent)
 - [Knowledge Agent MCP implementation issue](https://github.com/trussiumhq/trussium-knowledge-agent/issues/15)
+- [Knowledge Agent read-only link audit](https://github.com/trussiumhq/trussium-knowledge-agent/issues/19)
