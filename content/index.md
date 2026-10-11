@@ -65,9 +65,14 @@ manifests server-side, and verifies completed operations.
 
 The [Trussium Knowledge Agent](https://github.com/trussiumhq/trussium-knowledge-agent)
 is a Python reference application for Markdown knowledge search and
-documentation maintenance. It can index an explicitly selected local Markdown
-repository, send chunks to a configured Trussium runtime for embeddings, and
-run bounded semantic search over pgvector. Its `ask` command sends retrieved
+documentation maintenance. It can index explicitly selected local Markdown
+repositories and manually refresh bounded snapshots of selected public GitHub
+repositories pinned to full commit SHAs. It sends chunks to a configured
+Trussium runtime for embeddings and runs bounded semantic search over pgvector.
+GitHub indexing does not support private repositories or automatic
+synchronization. See the canonical
+[public GitHub refresh guide](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#explicit-public-github-refresh)
+for its limits and operational behavior. Its `ask` command sends retrieved
 passages to a configured Trussium chat model and returns an answer only when
 its citation IDs map to retrieved source paths and headings; missing or invalid
 evidence produces an insufficient-evidence response. A browser interface is
