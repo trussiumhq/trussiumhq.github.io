@@ -95,8 +95,10 @@ multi-user service; see the
 for its API, setup, and deployment boundary. Its source lifecycle safeguards
 keep deletions and confirmed GitHub access loss from being undone by a restored
 PostgreSQL backup: operators must reconcile the separately stored lifecycle
-journal before exposing a restored database. See the canonical
-[restore procedure](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#database-restore-ordering)
+journal before exposing a restored database. The repository records a
+successful rehearsal in a disposable local PostgreSQL cluster; it does not
+validate a deployment's backup storage, credentials, or access controls. For
+details, see the canonical [restore procedure](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#database-restore-ordering)
 and [lifecycle decision](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/adr/0006-restore-safe-source-lifecycle.md).
 
 ## Choose a starting point
