@@ -69,14 +69,18 @@ documentation maintenance. It can index explicitly selected local Markdown
 repositories and manually refresh bounded snapshots of selected public GitHub
 repositories pinned to full commit SHAs. It sends chunks to a configured
 Trussium runtime for embeddings and runs bounded semantic search over pgvector.
-GitHub indexing currently supports public repositories only; private
-repositories cannot be connected or indexed. A least-privilege GitHub App
-approach is documented for future implementation, but is not available in the
-application today. Automatic synchronization is also unsupported. See the
-canonical [private-access design](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/adr/0007-private-github-app-access-boundary.md)
-and
-[public GitHub refresh guide](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#explicit-public-github-refresh)
-for its limits and operational behavior. Its `ask` command sends retrieved
+Public GitHub indexing remains tokenless and explicit. An opt-in private GitHub
+App connector is also available for self-hosted deployments: the installer
+selects repositories, each access token is scoped to one repository, and
+security events plus expiring authorization leases restrict retrieval after
+access changes. Private sources require operator-managed credentials and
+HTTPS webhook configuration; the feature is not enabled by default. Webhooks
+never trigger content indexing, and automatic content synchronization is
+unsupported. See the canonical
+[private-source operations guide](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#opt-in-private-github-snapshots),
+[private-access ADR](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/adr/0007-private-github-app-access-boundary.md),
+and [public GitHub refresh guide](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#explicit-public-github-refresh).
+Its `ask` command sends retrieved
 passages to a configured Trussium chat model and returns an answer only when
 its citation IDs map to retrieved source paths and headings; missing or invalid
 evidence produces an insufficient-evidence response. A browser interface is
