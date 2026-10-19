@@ -108,6 +108,9 @@ successful rehearsal in a disposable local PostgreSQL cluster; it does not
 validate a deployment's backup storage, credentials, or access controls. For
 details, see the canonical [restore procedure](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/OPERATIONS.md#database-restore-ordering)
 and [lifecycle decision](https://github.com/trussiumhq/trussium-knowledge-agent/blob/main/docs/adr/0006-restore-safe-source-lifecycle.md).
+For the app-plus-PostgreSQL Docker Compose path, see the
+[Knowledge Agent deployment guide](knowledge-agent.md); it is self-hosted and
+does not require private GitHub credentials for local or public-source use.
 
 ## Choose a starting point
 
